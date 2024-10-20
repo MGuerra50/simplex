@@ -1,23 +1,23 @@
 public class Control {
-    public static int numberOfConstraints = Table.table.length - 1;//Linhas retirando a função principal
-    public static int numberOfVariables = Table.table[0].length - numberOfConstraints - 2; //Colunas com negativo na função principal
+    public static int numberOfConstraints = Table.table.length - 1;
+    public static int numberOfVariables = Table.table[0].length - numberOfConstraints - 1; 
 
     public static void control() {
         while (true) {
-            //1, 2, 5
             int pivotColumn = FindPivotColumn.findPivotColumn();
             if (pivotColumn < 0) {
-                break; // Otimização completa
+                break;
             }
             
             int pivotRow = FindPivotRow.findPivotRow(pivotColumn);
             if (pivotRow < 0) {
-                throw new ArithmeticException("Problema ilimitado");
+               break;
             }
 
-            Pivot.pivot(pivotRow, pivotColumn);
+            Pivot.pivot(pivotColumn, pivotRow);
         }
         
-        PrintSolution.printSolution();
+        PrintFinalResolution.printSolution();
+        Main.imprime(PrintFinalResolution.answers);
     }    
 }

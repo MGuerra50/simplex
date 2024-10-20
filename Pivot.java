@@ -1,18 +1,17 @@
 public class Pivot {
-    public static void pivot(int pivotRow, int pivotColumn) {
-        float pivotValue = Table.table[pivotRow][pivotColumn];
+    public static void pivot(int pivotColumn, int pivotRow) {
+        float[][] tableLocal = Table.table;
+        float pivotValue = tableLocal[pivotRow][pivotColumn];
 
-        // Normalizando a linha pivô
-        for (int j = 0; j < Table.table[0].length; j++) {
-            Table.table[pivotRow][j] /= pivotValue;
+        for (int j = 0; j < tableLocal[0].length; j++) {
+            tableLocal[pivotRow][j] = tableLocal[pivotRow][j] / pivotValue;
         }
 
-        // Atualizando as outras linhas
-        for (int i = 0; i < Table.table.length; i++) {
+        for (int i = 0; i < tableLocal.length; i++) {
             if (i != pivotRow) {
-                float factor = Table.table[i][pivotColumn];
-                for (int j = 0; j < Table.table[0].length; j++) {
-                    Table.table[i][j] -= factor * Table.table[pivotRow][j];
+                float factor = tableLocal[i][pivotColumn];
+                for (int j = 0; j < tableLocal[0].length; j++) {
+                    tableLocal[i][j] = tableLocal[i][j] + (-factor * tableLocal[pivotRow][j]);
                 }
             }
         }
